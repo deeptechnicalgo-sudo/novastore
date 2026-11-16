@@ -2,6 +2,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { auth } from "../../../auth";
 import AddPasswordClient from "./AddPasswordClient";
 
+export const dynamic = "force-dynamic";
+
 export default async function AddPasswordPage() {
   let ssoName = "";
   let ssoEmail = "";

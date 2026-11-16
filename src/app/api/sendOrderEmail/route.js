@@ -1,7 +1,9 @@
 import Stripe from "stripe";
 import nodemailer from "nodemailer";
 
-const stripe = new Stripe(process.env.stripeSecretkey);
+export const dynamic = "force-dynamic";
+
+const stripe = new Stripe(process.env.stripeSecretkey || process.env.STRIPE_SECRET_KEY || "sk_test_placeholder");
 
 export async function POST(req) {
   try {
