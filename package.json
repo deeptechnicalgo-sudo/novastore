@@ -1,0 +1,28 @@
+{
+  "name": "e-com",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@kinde-oss/kinde-auth-nextjs": "^2.13.2",
+    "@supabase/supabase-js": "^2.119.0",
+    "next": "16.4.6",
+    "next-auth": "^5.0.0-beta.32",
+    "nodemailer": "^8.0.11",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "stripe": "^23.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "babel-plugin-react-compiler": "1.0.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2"
+  }
+}
