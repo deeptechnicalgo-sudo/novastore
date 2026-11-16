@@ -11,9 +11,6 @@ build/
 dist/
 
 # Environment variables
-.env
-.env.*
-!.env.example
 
 # Logs
 npm-debug.log*
