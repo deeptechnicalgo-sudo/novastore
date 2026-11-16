@@ -73,10 +73,13 @@ export async function POST(req) {
     }
   }
 
+  const isAdmin = existingUsers && existingUsers.length > 0 ? Boolean(existingUsers[0].isAdmin) : false;
+
   const cookieStore = await cookies();
   cookieStore.set("user_session", JSON.stringify({
     name,
-    email
+    email,
+    isAdmin
   }), {
     path: "/",
     httpOnly: false,
@@ -86,7 +89,8 @@ export async function POST(req) {
 
   return Response.json({
     stat: "good",
-    Message: "Password saved successfully"
+    Message: "Password saved successfully",
+    isAdmin
   });
 }
 

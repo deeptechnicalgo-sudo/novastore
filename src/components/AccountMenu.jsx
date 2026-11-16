@@ -11,7 +11,26 @@ export default function AccountMenu() {
       try {
         const stored = localStorage.getItem("user");
         if (stored) {
-          setCurrentUser(JSON.parse(stored));
+          const parsed = JSON.parse(stored);
+          setCurrentUser(parsed);
+          const email = parsed.emailaddress || parsed.email;
+          if (email) {
+            fetch(`/api/admin/check?email=${encodeURIComponent(email)}`)
+              .then((res) => res.json())
+              .then((data) => {
+                if (data && typeof data.isAdmin === "boolean") {
+                  setCurrentUser((prev) => {
+                    if (!prev) return prev;
+                    const updated = { ...prev, isAdmin: data.isAdmin };
+                    try {
+                      localStorage.setItem("user", JSON.stringify(updated));
+                    } catch (e) {}
+                    return updated;
+                  });
+                }
+              })
+              .catch(() => {});
+          }
         } else {
           setCurrentUser(null);
         }
@@ -102,10 +121,32 @@ export default function AccountMenu() {
               <div className="nova-profile-info">
                 <p className="nova-profile-name">{currentUser.username || currentUser.name || "Member"}</p>
                 <p className="nova-profile-email">{currentUser.emailaddress || currentUser.email || ""}</p>
-                <span className="nova-profile-tier">Tier 01 Member</span>
+                <span className="nova-profile-tier" style={currentUser.isAdmin ? { backgroundColor: "#eab308", color: "#000", fontWeight: 700 } : {}}>
+                  {currentUser.isAdmin ? "Administrator" : "Tier 01 Member"}
+                </span>
               </div>
             </div>
             <ul className="nova-account-links">
+              {currentUser.isAdmin && (
+                <li>
+                  <a
+                    className="nova-account-link-item"
+                    href="/admin"
+                    style={{
+                      backgroundColor: "rgba(234, 179, 8, 0.12)",
+                      border: "1px solid rgba(234, 179, 8, 0.35)",
+                      borderRadius: "6px",
+                      color: "#b45309",
+                      fontWeight: 700,
+                      marginBottom: "6px"
+                    }}
+                  >
+                    <span className="material-symbols-outlined" style={{ color: "#d97706" }}>admin_panel_settings</span>
+                    <span>Admin Dashboard</span>
+                    <span style={{ marginLeft: "auto", fontSize: "10px", backgroundColor: "#d97706", color: "#fff", padding: "1px 6px", borderRadius: "4px" }}>ADMIN</span>
+                  </a>
+                </li>
+              )}
               <li>
                 <a className="nova-account-link-item" href="/Collections">
                   <span className="material-symbols-outlined">inventory_2</span>

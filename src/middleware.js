@@ -23,5 +23,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/Collections", "/Collections/:path*"],
+  matcher: ["/Collections", "/Collections/:path*", "/admin", "/admin/:path*"],
 };

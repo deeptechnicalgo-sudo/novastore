@@ -78,7 +78,8 @@ export async function POST(req) {
   cookieStore.set("user_session", JSON.stringify({
     id: data[0].id,
     name: data[0].username,
-    email: data[0].emailaddress
+    email: data[0].emailaddress,
+    isAdmin: Boolean(data[0].isAdmin)
   }), {
     path: "/",
     httpOnly: false,

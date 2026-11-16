@@ -290,7 +290,30 @@ export default function Header({ onCategorySelect, activeCategory = "All" }) {
           </button>
         ))}
 
-        <div style={{ marginLeft: "auto", fontSize: "12px", color: "#cccccc", letterSpacing: "0.02em" }}>
+        {currentUser?.isAdmin && (
+          <a
+            href="/admin"
+            style={{
+              marginLeft: "auto",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+              color: "#fbbf24",
+              fontWeight: 700,
+              fontSize: "12px",
+              textDecoration: "none",
+              padding: "3px 10px",
+              backgroundColor: "rgba(251, 191, 36, 0.15)",
+              border: "1px solid rgba(251, 191, 36, 0.45)",
+              borderRadius: "4px"
+            }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>admin_panel_settings</span>
+            <span>Admin Console</span>
+          </a>
+        )}
+
+        <div style={{ marginLeft: currentUser?.isAdmin ? "12px" : "auto", fontSize: "12px", color: "#cccccc", letterSpacing: "0.02em" }}>
           Complimentary Worldwide Carbon-Neutral Delivery
         </div>
       </nav>
